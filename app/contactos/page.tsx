@@ -1,13 +1,14 @@
-// app/contactos/page.tsx
 export default function Contactos() {
   return (
-    <div style={{ padding: 40, textAlign: "center" }}>
-      <h1>Contactos</h1>
-      <p>Instagram: <a href="https://instagram.com/tu_usuario_aqui" target="_blank" rel="noopener noreferrer">Ver Instagram</a></p>
-      <p>WhatsApp: <a href="https://wa.me/59892669143?text=Hola%20Lustrados%20Artigas" target="_blank" rel="noopener noreferrer">Enviar mensaje</a></p>
-      <p>Teléfono: 092 669 143</p>
-      <p>Email: lustradosartigas@gmail.com</p>
-      <p><a href="/" rel="noopener noreferrer">Volver</a></p>
-    </div>
+    <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-tr from-blue-600 via-green-500 to-yellow-400 text-white p-10 animate-fadeIn">
+      <h1 className="text-6xl font-extrabold mb-6 animate-bounce">Contáctame</h1>
+
+      <div className="text-2xl space-y-6 text-center">
+        <p>📧 <strong>Email:</strong> patriciatafernaberry69@gmail.com</p>
+        <p>📱 <strong>WhatsApp:</strong> +598 94 528 854</p>
+        <p>📸 <strong>Instagram:</strong> Próximamente...</p>
+      </div>
+    </main>
   );
 }
+
