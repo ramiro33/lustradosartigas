@@ -69,7 +69,7 @@ export default function Home() {
       height: "100vh",
       fontFamily: "'Roboto', sans-serif",
       margin: 0,
-      background: "linear-gradient(to bottom, #f5f5f5, #e0e0e0)",
+      background: "#f8f9fa",
       overflowY: "auto",
     }}>
       <nav style={{
