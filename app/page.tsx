@@ -1,68 +1,87 @@
+import { FaInstagram, FaWhatsapp, FaHammer, FaEnvelope, FaStar } from "react-icons/fa";
+
 export default function Home() {
   return (
-    <div className="grid grid-cols-[150px_1fr] grid-rows-[auto_1fr_auto] h-screen font-sans bg-white text-black">
+    <div className="min-h-screen grid grid-cols-[200px_1fr] bg-gradient-to-br from-neutral-100 via-sky-100 to-blue-200 text-gray-900 font-sans">
       
-      {/* Sidebar con logo y botones */}
-      <nav className="border-r-2 border-black flex flex-col items-center pt-5 gap-10">
-        <a href="/" title="Inicio">
-          <img
-            src="/logo.png"
-            alt="Logo Lustrados"
-            className="w-[100px] cursor-pointer transition-transform duration-300 hover:scale-110"
-          />
-        </a>
+      {/* Sidebar */}
+      <aside className="bg-white shadow-lg flex flex-col items-center py-6 gap-8 border-r border-gray-300">
+        <img src="/logo.png" alt="Logo Lustrados" className="w-24" />
+        <nav className="flex flex-col gap-6 text-lg font-semibold">
+          <a href="#trabajos" className="flex items-center gap-2 hover:text-blue-600 transition">
+            <FaHammer /> TRABAJOS
+          </a>
+          <a href="#contactos" className="flex items-center gap-2 hover:text-blue-600 transition">
+            <FaEnvelope /> CONTACTOS
+          </a>
+          <a href="#resenas" className="flex items-center gap-2 hover:text-blue-600 transition">
+            <FaStar /> RESEÑAS
+          </a>
+        </nav>
+      </aside>
 
-        {["TRABAJOS", "CONTACTOS", "RESEÑAS"].map((text, i) => (
+      {/* Main content */}
+      <main className="flex flex-col justify-between px-10 py-6">
+        
+        {/* Header */}
+        <header className="text-center text-4xl font-bold mb-8">
+          LUSTRADOS Y CARPINTERÍA <br /> ARTIGAS
+        </header>
+
+        {/* Redes sociales */}
+        <section className="flex justify-center items-center gap-12 mb-10">
           <a
-            key={i}
-            href={`/${text.toLowerCase()}`}
+            href="https://instagram.com/tu_usuario"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-bold text-lg px-4 py-2 border border-black rounded transition-all duration-300 hover:bg-neutral-200 hover:scale-105"
+            className="text-pink-600 hover:scale-110 transition-transform"
           >
-            {text}
+            <FaInstagram size={80} />
           </a>
-        ))}
-      </nav>
-
-      {/* Encabezado */}
-      <header className="col-start-2 p-6 text-3xl font-bold text-center border-b-2 border-black">
-        LUSTRADOS Y CARPINTERÍA<br />ARTIGAS
-      </header>
-
-      {/* Logos de redes */}
-      <main className="col-start-2 flex flex-col justify-center items-center gap-8">
-        <div className="flex gap-10 items-center">
-          <a
-            href="https://instagram.com/tu_usuario_aqui"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="/instagram.png"
-              alt="Instagram Logo"
-              className="w-[200px] cursor-pointer transition-transform duration-300 hover:scale-110"
-            />
-          </a>
-
           <a
             href="https://wa.me/59892669143?text=Hola%20Lustrados%20Artigas"
             target="_blank"
             rel="noopener noreferrer"
+            className="text-green-600 hover:scale-110 transition-transform"
           >
-            <img
-              src="/whatsapp.png"
-              alt="Whatsapp Logo"
-              className="w-[100px] cursor-pointer transition-transform duration-300 hover:scale-110"
-            />
+            <FaWhatsapp size={60} />
           </a>
-        </div>
-      </main>
+        </section>
 
-      {/* Footer con teléfono */}
-      <footer className="col-start-2 text-center p-4 text-lg font-bold border-t border-black">
-        TELÉFONO: 092 669 143
-      </footer>
+        {/* Secciones */}
+        <section id="trabajos" className="mb-10">
+          <h2 className="text-2xl font-bold mb-4">Nuestros Trabajos</h2>
+          <div className="grid grid-cols-2 gap-6">
+            <div className="bg-white p-4 rounded shadow hover:shadow-lg transition">
+              <h3 className="font-semibold">Lijado y barnizado</h3>
+              <p className="text-sm text-gray-600">Transformamos muebles con acabados brillantes.</p>
+            </div>
+            <div className="bg-white p-4 rounded shadow hover:shadow-lg transition">
+              <h3 className="font-semibold">Restauración de puertas</h3>
+              <p className="text-sm text-gray-600">Recuperamos la belleza original de la madera.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="contactos" className="mb-10">
+          <h2 className="text-2xl font-bold mb-4">Contacto</h2>
+          <p className="text-lg">📞 Teléfono: <strong>092 669 143</strong></p>
+          <p className="text-lg">📧 Email: <strong>lustradosartigas@email.com</strong></p>
+        </section>
+
+        <section id="resenas" className="mb-10">
+          <h2 className="text-2xl font-bold mb-4">Reseñas</h2>
+          <div className="bg-white p-4 rounded shadow">
+            <p className="italic">“Excelente trabajo, muy detallista y profesional.”</p>
+            <p className="text-sm text-right mt-2">– Cliente satisfecho</p>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="text-center text-lg font-semibold border-t pt-4">
+          TELÉFONO: 092 669 143
+        </footer>
+      </main>
     </div>
   );
 }
