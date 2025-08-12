@@ -1,10 +1,9 @@
-// app/page.tsx
 export default function Home() {
   return (
     <div style={{
       display: "grid",
       gridTemplateColumns: "150px 1fr",
-      gridTemplateRows: "auto 1fr",
+      gridTemplateRows: "auto 1fr auto",
       height: "100vh",
       fontFamily: "Arial, sans-serif",
       margin: 0
@@ -14,34 +13,59 @@ export default function Home() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        paddingTop: "10px"
+        paddingTop: "20px",
+        gap: "30px"
       }}>
-        <a href="/" title="Inicio">
-          <img src="/logo.png" alt="Logo Lustrados" style={{ width: 100, cursor: "pointer" }} />
+        <a href="/" title="Inicio" style={{ transition: "transform 0.3s ease" }}>
+          <img
+            src="/logo.png"
+            alt="Logo Lustrados"
+            style={{
+              width: 150,
+              cursor: "pointer",
+              transition: "transform 0.3s ease"
+            }}
+            onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
+            onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
+          />
         </a>
 
-        <a href="/trabajos" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", fontWeight: "bold", margin: "20px 0", color: "black" }}>
-          TRABAJOS
-        </a>
-
-        <a href="/contactos" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", fontWeight: "bold", margin: "20px 0", color: "black" }}>
-          CONTACTOS
-        </a>
-
-        <a href="/resenas" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", fontWeight: "bold", margin: "20px 0", color: "black" }}>
-          RESEÑAS
-        </a>
+        {["TRABAJOS", "CONTACTOS", "RESEÑAS"].map((text, i) => (
+          <a
+            key={i}
+            href={`/${text.toLowerCase()}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              textDecoration: "none",
+              fontWeight: "bold",
+              color: "black",
+              fontSize: "1.1rem",
+              transition: "color 0.3s ease, transform 0.3s ease"
+            }}
+            onMouseOver={e => {
+              e.currentTarget.style.color = "#555";
+              e.currentTarget.style.transform = "scale(1.05)";
+            }}
+            onMouseOut={e => {
+              e.currentTarget.style.color = "black";
+              e.currentTarget.style.transform = "scale(1)";
+            }}
+          >
+            {text}
+          </a>
+        ))}
       </nav>
 
       <header style={{
         gridColumn: "2 / 3",
-        padding: "20px",
-        fontSize: "2rem",
+        padding: "30px 20px",
+        fontSize: "2.5rem",
         fontWeight: "bold",
         textAlign: "center",
         borderBottom: "2px solid black"
       }}>
-        LUSTRADOS Y CARPINTERÍA<br/>ARTIGAS
+        LUSTRADOS Y CARPINTERÍA<br />ARTIGAS
       </header>
 
       <main style={{
@@ -50,15 +74,35 @@ export default function Home() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        gap: "20px"
+        gap: "40px"
       }}>
-        <div style={{ display: "flex", gap: "50px", alignItems: "center" }}>
+        <div style={{ display: "flex", gap: "60px", alignItems: "center" }}>
           <a href="https://instagram.com/tu_usuario_aqui" target="_blank" rel="noopener noreferrer">
-            <img src="/instagram.png" alt="Instagram Logo" style={{ width: 80, cursor: "pointer" }} />
+            <img
+              src="/instagram.png"
+              alt="Instagram Logo"
+              style={{
+                width: 350,
+                cursor: "pointer",
+                transition: "transform 0.3s ease"
+              }}
+              onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
+              onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
+            />
           </a>
 
           <a href="https://wa.me/59892669143?text=Hola%20Lustrados%20Artigas" target="_blank" rel="noopener noreferrer">
-            <img src="/whatsapp.png" alt="Whatsapp Logo" style={{ width: 80, cursor: "pointer" }} />
+            <img
+              src="/whatsapp.png"
+              alt="Whatsapp Logo"
+              style={{
+                width: 350,
+                cursor: "pointer",
+                transition: "transform 0.3s ease"
+              }}
+              onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
+              onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
+            />
           </a>
         </div>
       </main>
@@ -66,11 +110,13 @@ export default function Home() {
       <footer style={{
         gridColumn: "2 / 3",
         textAlign: "center",
-        padding: "10px",
-        fontSize: "1.2rem"
+        padding: "20px",
+        fontSize: "1.5rem",
+        fontWeight: "bold"
       }}>
         TELÉFONO: 092 669 143
       </footer>
     </div>
   );
 }
+
