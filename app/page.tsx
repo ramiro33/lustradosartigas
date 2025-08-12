@@ -7,10 +7,6 @@ export default function Home() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [user, setUser] = useState(null);
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [registerData, setRegisterData] = useState({ name: '', email: '', password: '' });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -24,41 +20,14 @@ export default function Home() {
     setTimeout(() => setSubmitted(false), 3000);
   };
 
-  const handleRegisterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setRegisterData(prev => ({ ...prev, [name]: value }));
+  const handleGoogleSignIn = () => {
+    console.log('Iniciar sesión con Google');
+    // Aquí iría la lógica real de autenticación con Google
   };
 
-  const handleRegisterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Registro:', registerData);
-    setUser({ name: registerData.name, email: registerData.email });
-    setShowRegisterModal(false);
-    setRegisterData({ name: '', email: '', password: '' });
-  };
-
-  const handleGoogleLogin = () => {
-    // Simulación de inicio de sesión con Google
-    console.log('Iniciando sesión con Google...');
-    setUser({ name: 'Usuario Google', email: 'google@example.com' });
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-  };
-
-  const testimonials = [
-    { text: 'Excelente trabajo en el lustrado de mis muebles antiguos. ¡Quedaron como nuevos!', author: 'Cliente Satisfecho 1' },
-    { text: 'Profesionales y puntuales. Recomiendo sus servicios de carpintería.', author: 'Cliente Satisfecho 2' },
-    { text: 'Gran atención al detalle en cada proyecto. ¡Volveré por más!', author: 'Cliente Satisfecho 3' },
-  ];
-
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  const handleSignUp = () => {
+    console.log('Registrarse');
+    // Aquí iría la lógica real de registro
   };
 
   return (
@@ -69,7 +38,7 @@ export default function Home() {
       height: "100vh",
       fontFamily: "'Roboto', sans-serif",
       margin: 0,
-      background: "#f8f9fa",
+      background: "linear-gradient(to bottom, #ffebcd, #cd853f)",
       overflowY: "auto",
     }}>
       <nav style={{
@@ -130,59 +99,35 @@ export default function Home() {
           RESEÑAS
         </button>
 
-        {!user && (
-          <>
-            <button onClick={() => setShowRegisterModal(true)} style={{
-              textDecoration: "none",
-              fontWeight: "bold",
-              margin: "20px 0",
-              color: "#fff",
-              backgroundColor: "#8B4513",
-              padding: "10px 20px",
-              borderRadius: "5px",
-              border: "none",
-              cursor: "pointer",
-              transition: "background-color 0.3s, transform 0.3s",
-            }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#A0522D"; e.currentTarget.style.transform = "scale(1.05)"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#8B4513"; e.currentTarget.style.transform = "scale(1)"; }}>
-              REGISTRARSE
-            </button>
+        <button onClick={handleSignUp} style={{
+          textDecoration: "none",
+          fontWeight: "bold",
+          margin: "20px 0",
+          color: "#fff",
+          backgroundColor: "#8B4513",
+          padding: "10px 20px",
+          borderRadius: "5px",
+          border: "none",
+          cursor: "pointer",
+          transition: "background-color 0.3s, transform 0.3s",
+        }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#A0522D"; e.currentTarget.style.transform = "scale(1.05)"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#8B4513"; e.currentTarget.style.transform = "scale(1)"; }}>
+          REGISTRARSE
+        </button>
 
-            <button onClick={handleGoogleLogin} style={{
-              textDecoration: "none",
-              fontWeight: "bold",
-              margin: "20px 0",
-              color: "#fff",
-              backgroundColor: "#8B4513",
-              padding: "10px 20px",
-              borderRadius: "5px",
-              border: "none",
-              cursor: "pointer",
-              transition: "background-color 0.3s, transform 0.3s",
-            }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#A0522D"; e.currentTarget.style.transform = "scale(1.05)"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#8B4513"; e.currentTarget.style.transform = "scale(1)"; }}>
-              INICIAR SESIÓN CON GOOGLE
-            </button>
-          </>
-        )}
-
-        {user && (
-          <>
-            <p style={{ margin: "20px 0", fontWeight: "bold" }}>Bienvenido, {user.name}</p>
-            <button onClick={handleLogout} style={{
-              textDecoration: "none",
-              fontWeight: "bold",
-              margin: "20px 0",
-              color: "#fff",
-              backgroundColor: "#8B4513",
-              padding: "10px 20px",
-              borderRadius: "5px",
-              border: "none",
-              cursor: "pointer",
-              transition: "background-color 0.3s, transform 0.3s",
-            }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#A0522D"; e.currentTarget.style.transform = "scale(1.05)"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#8B4513"; e.currentTarget.style.transform = "scale(1)"; }}>
-              CERRAR SESIÓN
-            </button>
-          </>
-        )}
+        <button onClick={handleGoogleSignIn} style={{
+          textDecoration: "none",
+          fontWeight: "bold",
+          margin: "20px 0",
+          color: "#fff",
+          backgroundColor: "#8B4513",
+          padding: "10px 20px",
+          borderRadius: "5px",
+          border: "none",
+          cursor: "pointer",
+          transition: "background-color 0.3s, transform 0.3s",
+        }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#A0522D"; e.currentTarget.style.transform = "scale(1.05)"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#8B4513"; e.currentTarget.style.transform = "scale(1)"; }}>
+          INICIAR SESIÓN CON GOOGLE
+        </button>
       </nav>
 
       <header style={{
@@ -294,37 +239,6 @@ export default function Home() {
           )}
         </section>
 
-        {/* Testimonials Section */}
-        <section style={{ width: "100%", textAlign: "center", padding: "30px", backgroundColor: "#D2B48C", borderRadius: "10px", color: "#fff" }}>
-          <h2>Testimonios</h2>
-          <p style={{ fontStyle: "italic" }}>"{testimonials[currentTestimonial].text}"</p>
-          <p>- {testimonials[currentTestimonial].author}</p>
-          <div style={{ display: "flex", justifyContent: "center", gap: "20px", marginTop: "10px" }}>
-            <button onClick={prevTestimonial} style={{
-              padding: "5px 10px",
-              backgroundColor: "#8B4513",
-              color: "#fff",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              transition: "background-color 0.3s",
-            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#A0522D"} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#8B4513"}>
-              Anterior
-            </button>
-            <button onClick={nextTestimonial} style={{
-              padding: "5px 10px",
-              backgroundColor: "#8B4513",
-              color: "#fff",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              transition: "background-color 0.3s",
-            }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#A0522D"} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#8B4513"}>
-              Siguiente
-            </button>
-          </div>
-        </section>
-
         {/* Newsletter Signup */}
         <section style={{ width: "100%", maxWidth: "600px", textAlign: "center" }}>
           <h2>Suscríbete a Nuestro Newsletter</h2>
@@ -394,53 +308,6 @@ export default function Home() {
           <p>Consejos para mantener tus muebles lustrados. <a href="/blog" style={{ color: "#8B4513", textDecoration: "underline" }}>Leer más</a></p>
         </section>
       </main>
-
-      {showRegisterModal && (
-        <div style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          backgroundColor: "rgba(0,0,0,0.5)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          zIndex: 1000,
-        }}>
-          <div style={{
-            backgroundColor: "#fff",
-            padding: "30px",
-            borderRadius: "10px",
-            boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
-            width: "400px",
-          }}>
-            <h2>Registrarse</h2>
-            <form onSubmit={handleRegisterSubmit} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-              <input type="text" name="name" placeholder="Nombre" value={registerData.name} onChange={handleRegisterChange} required style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
-              <input type="email" name="email" placeholder="Email" value={registerData.email} onChange={handleRegisterChange} required style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
-              <input type="password" name="password" placeholder="Contraseña" value={registerData.password} onChange={handleRegisterChange} required style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
-              <button type="submit" style={{
-                padding: "10px",
-                backgroundColor: "#8B4513",
-                color: "#fff",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-              }}>Registrarse</button>
-            </form>
-            <button onClick={() => setShowRegisterModal(false)} style={{
-              marginTop: "10px",
-              padding: "10px",
-              backgroundColor: "#ccc",
-              color: "#000",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}>Cerrar</button>
-          </div>
-        </div>
-      )}
 
       <footer style={{
         gridColumn: "1 / 3",
