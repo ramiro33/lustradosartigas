@@ -1,12 +1,14 @@
 export default function Home() {
   return (
-    <div className="grid grid-cols-[150px_1fr] grid-rows-[auto_1fr_auto] h-screen font-sans m-0">
-      <nav className="border-r-2 border-black flex flex-col items-center pt-5 gap-8">
+    <div className="grid grid-cols-[150px_1fr] grid-rows-[auto_1fr_auto] h-screen font-sans bg-white text-black">
+      
+      {/* Sidebar con logo y botones */}
+      <nav className="border-r-2 border-black flex flex-col items-center pt-5 gap-10">
         <a href="/" title="Inicio">
           <img
             src="/logo.png"
             alt="Logo Lustrados"
-            className="w-[150px] cursor-pointer transition-transform duration-300 hover:scale-110"
+            className="w-[100px] cursor-pointer transition-transform duration-300 hover:scale-110"
           />
         </a>
 
@@ -16,19 +18,21 @@ export default function Home() {
             href={`/${text.toLowerCase()}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-bold text-black text-[1.1rem] transition-all duration-300 hover:text-neutral-600 hover:scale-105"
+            className="font-bold text-lg px-4 py-2 border border-black rounded transition-all duration-300 hover:bg-neutral-200 hover:scale-105"
           >
             {text}
           </a>
         ))}
       </nav>
 
-      <header className="col-start-2 p-8 text-4xl font-bold text-center border-b-2 border-black">
+      {/* Encabezado */}
+      <header className="col-start-2 p-6 text-3xl font-bold text-center border-b-2 border-black">
         LUSTRADOS Y CARPINTERÍA<br />ARTIGAS
       </header>
 
-      <main className="col-start-2 flex flex-col justify-center items-center gap-10">
-        <div className="flex gap-14 items-center">
+      {/* Logos de redes */}
+      <main className="col-start-2 flex flex-col justify-center items-center gap-8">
+        <div className="flex gap-10 items-center">
           <a
             href="https://instagram.com/tu_usuario_aqui"
             target="_blank"
@@ -37,7 +41,7 @@ export default function Home() {
             <img
               src="/instagram.png"
               alt="Instagram Logo"
-              className="w-[350px] cursor-pointer transition-transform duration-300 hover:scale-110"
+              className="w-[200px] cursor-pointer transition-transform duration-300 hover:scale-110"
             />
           </a>
 
@@ -49,13 +53,14 @@ export default function Home() {
             <img
               src="/whatsapp.png"
               alt="Whatsapp Logo"
-              className="w-[350px] cursor-pointer transition-transform duration-300 hover:scale-110"
+              className="w-[100px] cursor-pointer transition-transform duration-300 hover:scale-110"
             />
           </a>
         </div>
       </main>
 
-      <footer className="col-start-2 text-center p-5 text-xl font-bold">
+      {/* Footer con teléfono */}
+      <footer className="col-start-2 text-center p-4 text-lg font-bold border-t border-black">
         TELÉFONO: 092 669 143
       </footer>
     </div>
