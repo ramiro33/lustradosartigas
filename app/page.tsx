@@ -1,32 +1,12 @@
 export default function Home() {
   return (
-    <div style={{
-      display: "grid",
-      gridTemplateColumns: "150px 1fr",
-      gridTemplateRows: "auto 1fr auto",
-      height: "100vh",
-      fontFamily: "Arial, sans-serif",
-      margin: 0
-    }}>
-      <nav style={{
-        borderRight: "2px solid black",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        paddingTop: "20px",
-        gap: "30px"
-      }}>
-        <a href="/" title="Inicio" style={{ transition: "transform 0.3s ease" }}>
+    <div className="grid grid-cols-[150px_1fr] grid-rows-[auto_1fr_auto] h-screen font-sans m-0">
+      <nav className="border-r-2 border-black flex flex-col items-center pt-5 gap-8">
+        <a href="/" title="Inicio">
           <img
             src="/logo.png"
             alt="Logo Lustrados"
-            style={{
-              width: 150,
-              cursor: "pointer",
-              transition: "transform 0.3s ease"
-            }}
-            onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
-            onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
+            className="w-[150px] cursor-pointer transition-transform duration-300 hover:scale-110"
           />
         </a>
 
@@ -36,87 +16,48 @@ export default function Home() {
             href={`/${text.toLowerCase()}`}
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              textDecoration: "none",
-              fontWeight: "bold",
-              color: "black",
-              fontSize: "1.1rem",
-              transition: "color 0.3s ease, transform 0.3s ease"
-            }}
-            onMouseOver={e => {
-              e.currentTarget.style.color = "#555";
-              e.currentTarget.style.transform = "scale(1.05)";
-            }}
-            onMouseOut={e => {
-              e.currentTarget.style.color = "black";
-              e.currentTarget.style.transform = "scale(1)";
-            }}
+            className="font-bold text-black text-[1.1rem] transition-all duration-300 hover:text-neutral-600 hover:scale-105"
           >
             {text}
           </a>
         ))}
       </nav>
 
-      <header style={{
-        gridColumn: "2 / 3",
-        padding: "30px 20px",
-        fontSize: "2.5rem",
-        fontWeight: "bold",
-        textAlign: "center",
-        borderBottom: "2px solid black"
-      }}>
+      <header className="col-start-2 p-8 text-4xl font-bold text-center border-b-2 border-black">
         LUSTRADOS Y CARPINTERÍA<br />ARTIGAS
       </header>
 
-      <main style={{
-        gridColumn: "2 / 3",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "40px"
-      }}>
-        <div style={{ display: "flex", gap: "60px", alignItems: "center" }}>
-          <a href="https://instagram.com/tu_usuario_aqui" target="_blank" rel="noopener noreferrer">
+      <main className="col-start-2 flex flex-col justify-center items-center gap-10">
+        <div className="flex gap-14 items-center">
+          <a
+            href="https://instagram.com/tu_usuario_aqui"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img
               src="/instagram.png"
               alt="Instagram Logo"
-              style={{
-                width: 350,
-                cursor: "pointer",
-                transition: "transform 0.3s ease"
-              }}
-              onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
-              onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
+              className="w-[350px] cursor-pointer transition-transform duration-300 hover:scale-110"
             />
           </a>
 
-          <a href="https://wa.me/59892669143?text=Hola%20Lustrados%20Artigas" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://wa.me/59892669143?text=Hola%20Lustrados%20Artigas"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img
               src="/whatsapp.png"
               alt="Whatsapp Logo"
-              style={{
-                width: 350,
-                cursor: "pointer",
-                transition: "transform 0.3s ease"
-              }}
-              onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
-              onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
+              className="w-[350px] cursor-pointer transition-transform duration-300 hover:scale-110"
             />
           </a>
         </div>
       </main>
 
-      <footer style={{
-        gridColumn: "2 / 3",
-        textAlign: "center",
-        padding: "20px",
-        fontSize: "1.5rem",
-        fontWeight: "bold"
-      }}>
+      <footer className="col-start-2 text-center p-5 text-xl font-bold">
         TELÉFONO: 092 669 143
       </footer>
     </div>
   );
 }
-
