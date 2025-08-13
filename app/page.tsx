@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -42,18 +42,16 @@ export default function Home() {
     setShowLogin(false);
   };
 
-  const handleLoginOpen = () => {
-    setShowLogin(true);
+  const handleLoginOpen = () => setShowLogin(true);
+  const handleLoginClose = (e: React.KeyboardEvent | MouseEvent) => {
+    if (e instanceof KeyboardEvent && e.key === 'Escape') setShowLogin(false);
+    if (e instanceof MouseEvent && (e.target as HTMLElement).className === 'modal') setShowLogin(false);
   };
 
-  const handleLoginClose = (e: React.KeyboardEvent | MouseEvent) => {
-    if (e instanceof KeyboardEvent && e.key === 'Escape') {
-      setShowLogin(false);
-    }
-    if (e instanceof MouseEvent && (e.target as HTMLElement).className === 'modal') {
-      setShowLogin(false);
-    }
-  };
+  useEffect(() => {
+    document.addEventListener('keydown', handleLoginClose as any);
+    return () => document.removeEventListener('keydown', handleLoginClose as any);
+  }, []);
 
   return (
     <div style={{
@@ -211,7 +209,7 @@ export default function Home() {
           justifyContent: "center",
           alignItems: "center",
           zIndex: 1000,
-        }} onClick={handleLoginClose} onKeyDown={handleLoginClose}>
+        }} onClick={handleLoginClose} onKeyDown={handleLoginClose as any}>
           <div style={{
             backgroundColor: "#fff",
             padding: "20px",
