@@ -43,15 +43,25 @@ export default function Home() {
   };
 
   const handleLoginOpen = () => setShowLogin(true);
-  const handleLoginClose = (e: React.KeyboardEvent | MouseEvent) => {
-    if (e instanceof KeyboardEvent && e.key === 'Escape') setShowLogin(false);
-    if (e instanceof MouseEvent && (e.target as HTMLElement).className === 'modal') setShowLogin(false);
+
+  const handleLoginClose = (e: React.KeyboardEvent | React.MouseEvent) => {
+    if ('key' in e && e.key === 'Escape') {
+      setShowLogin(false);
+    }
+    if ('target' in e && (e.target as HTMLElement).className === 'modal') {
+      setShowLogin(false);
+    }
   };
 
   useEffect(() => {
-    document.addEventListener('keydown', handleLoginClose as any);
-    return () => document.removeEventListener('keydown', handleLoginClose as any);
-  }, []);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showLogin) {
+        setShowLogin(false);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [showLogin]);
 
   return (
     <div style={{
@@ -209,7 +219,7 @@ export default function Home() {
           justifyContent: "center",
           alignItems: "center",
           zIndex: 1000,
-        }} onClick={handleLoginClose} onKeyDown={handleLoginClose as any}>
+        }} onClick={handleLoginClose} onKeyDown={handleLoginClose}>
           <div style={{
             backgroundColor: "#fff",
             padding: "20px",
