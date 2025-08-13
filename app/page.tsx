@@ -10,7 +10,6 @@ export default function Home() {
   const [loginData, setLoginData] = useState({ username: '', email: '', password: '' });
   const [loginError, setLoginError] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -45,24 +44,15 @@ export default function Home() {
     setIsLoggedIn(true);
   };
 
-  const handleLoginOpen = () => setShowLogin(true);
+  const handleLoginOpen = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowLogin(true);
+  };
 
   const handleLoginClose = (e: React.MouseEvent) => {
-    setShowLogin(false);
-  };
-
-  const testimonials = [
-    { text: 'Excelente trabajo en el lustrado de mis muebles antiguos. ¡Quedaron como nuevos!', author: 'Cliente Satisfecho 1' },
-    { text: 'Profesionales y puntuales. Recomiendo sus servicios de carpintería.', author: 'Cliente Satisfecho 2' },
-    { text: 'Gran atención al detalle en cada proyecto. ¡Volveré por más!', author: 'Cliente Satisfecho 3' },
-  ];
-
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    if ('target' in e && (e.target as HTMLElement).className === 'modal' || e.currentTarget.className === 'close-button') {
+      setShowLogin(false);
+    }
   };
 
   return (
@@ -133,15 +123,15 @@ export default function Home() {
         color: "#fff",
       }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "20px" }}>
-          <a href="/trabajos" style={{ color: "#fff", textDecoration: "none", fontSize: "1.2rem", padding: "15px 40px", backgroundColor: "#8B4513", borderRadius: "5px", transition: "color 0.3s, background-color 0.3s" }} 
-            onMouseEnter={(e) => { e.currentTarget.style.color = "#FFD700"; e.currentTarget.style.backgroundColor = "#A0522D"; }} 
-            onMouseLeave={(e) => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.backgroundColor = "#8B4513"; }}>Proyectos</a>
-          <a href="/contactos" style={{ color: "#fff", textDecoration: "none", fontSize: "1.2rem", padding: "15px 40px", backgroundColor: "#8B4513", borderRadius: "5px", transition: "color 0.3s, background-color 0.3s" }} 
-            onMouseEnter={(e) => { e.currentTarget.style.color = "#FFD700"; e.currentTarget.style.backgroundColor = "#A0522D"; }} 
-            onMouseLeave={(e) => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.backgroundColor = "#8B4513"; }}>Asistencia</a>
-          <a href="/presupuestos" style={{ color: "#fff", textDecoration: "none", fontSize: "1.2rem", padding: "15px 40px", backgroundColor: "#8B4513", borderRadius: "5px", transition: "color 0.3s, background-color 0.3s" }} 
-            onMouseEnter={(e) => { e.currentTarget.style.color = "#FFD700"; e.currentTarget.style.backgroundColor = "#A0522D"; }} 
-            onMouseLeave={(e) => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.backgroundColor = "#8B4513"; }}>Presupuestos</a>
+          <a href="/trabajos" style={{ color: "#D4A017", textDecoration: "none", fontSize: "1.2rem", padding: "15px 40px", border: "1px solid black", background: "transparent", borderRadius: "5px", transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Proyectos</a>
+          <a href="/contactos" style={{ color: "#D4A017", textDecoration: "none", fontSize: "1.2rem", padding: "15px 40px", border: "1px solid black", background: "transparent", borderRadius: "5px", transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Asistencia</a>
+          <a href="/presupuestos" style={{ color: "#D4A017", textDecoration: "none", fontSize: "1.2rem", padding: "15px 40px", border: "1px solid black", background: "transparent", borderRadius: "5px", transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Presupuestos</a>
           <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
             <a href="https://facebook.com/tu_pagina" target="_blank" rel="noopener noreferrer" style={{ transition: "transform 0.3s" }} 
               onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.2)"} 
@@ -213,28 +203,6 @@ export default function Home() {
           <p>Somos un equipo apasionado por la madera, ubicado en Artigas, Uruguay. Con años de experiencia, ofrecemos servicios de alta calidad en lustrado y carpintería.</p>
         </section>
 
-        {/* Contact Form */}
-        <section style={{ width: "100%", maxWidth: "600px" }}>
-          <h2>Contáctanos</h2>
-          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-            <input type="text" name="name" placeholder="Tu Nombre" value={formData.name} onChange={handleInputChange} required style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
-            <input type="email" name="email" placeholder="Tu Email" value={formData.email} onChange={handleInputChange} required style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
-            <textarea name="message" placeholder="Tu Mensaje" value={formData.message} onChange={handleInputChange} required style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc", height: "100px" }} />
-            <button type="submit" style={{
-              padding: "10px",
-              border: "1px solid black",
-              background: "transparent",
-              color: "#D4A017",
-              borderRadius: "5px",
-              cursor: "pointer",
-              transition: "color 0.3s, box-shadow 0.3s",
-            }} onMouseEnter={(e) => { e.currentTarget.style.color = "#FFD700"; e.currentTarget.style.boxShadow = "0 0 10px #FFD700"; }} onMouseLeave={(e) => { e.currentTarget.style.color = "#D4A017"; e.currentTarget.style.boxShadow = "none"; }}>
-              Enviar
-            </button>
-          </form>
-          {submitted && <p style={{ color: "green", marginTop: "10px" }}>¡Mensaje enviado con éxito!</p>}
-        </section>
-
         {/* Gallery Section */}
         <section style={{ width: "100%", textAlign: "center" }}>
           <button onClick={() => setShowGallery(!showGallery)} style={{
@@ -255,55 +223,6 @@ export default function Home() {
               <img src="/gallery3.jpg" alt="Trabajo 3" style={{ width: "200px", borderRadius: "10px", boxShadow: "0 2px 5px rgba(0,0,0,0.1)", transition: "transform 0.3s" }} onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.1)"} onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"} />
             </div>
           )}
-        </section>
-
-        {/* Testimonials Section */}
-        <section style={{ width: "100%", textAlign: "center", padding: "30px", background: "rgba(210,180,140,0.2)", borderRadius: "10px", color: "#fff" }}>
-          <h2>Testimonios</h2>
-          <p style={{ fontStyle: "italic" }}>"{testimonials[currentTestimonial].text}"</p>
-          <p>- {testimonials[currentTestimonial].author}</p>
-          <div style={{ display: "flex", justifyContent: "center", gap: "20px", marginTop: "10px" }}>
-            <button onClick={prevTestimonial} style={{
-              padding: "5px 10px",
-              border: "1px solid black",
-              background: "transparent",
-              color: "#D4A017",
-              borderRadius: "5px",
-              cursor: "pointer",
-              transition: "color 0.3s",
-            }} onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>
-              Anterior
-            </button>
-            <button onClick={nextTestimonial} style={{
-              padding: "5px 10px",
-              border: "1px solid black",
-              background: "transparent",
-              color: "#D4A017",
-              borderRadius: "5px",
-              cursor: "pointer",
-              transition: "color 0.3s",
-            }} onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>
-              Siguiente
-            </button>
-          </div>
-        </section>
-
-        {/* Newsletter Signup */}
-        <section style={{ width: "100%", maxWidth: "600px", textAlign: "center" }}>
-          <h2>Suscríbete a Nuestro Newsletter</h2>
-          <p>Recibe actualizaciones sobre nuevos servicios y ofertas especiales.</p>
-          <input type="email" placeholder="Tu Email" style={{ padding: "10px", width: "70%", borderRadius: "5px", border: "1px solid #ccc", marginBottom: "10px" }} />
-          <button style={{
-            padding: "10px 20px",
-            border: "1px solid black",
-            background: "transparent",
-            color: "#D4A017",
-            borderRadius: "5px",
-            cursor: "pointer",
-            transition: "color 0.3s, opacity 0.3s",
-          }} onMouseEnter={(e) => { e.currentTarget.style.color = "#FFD700"; e.currentTarget.style.opacity = "0.8"; }} onMouseLeave={(e) => { e.currentTarget.style.color = "#D4A017"; e.currentTarget.style.opacity = "1"; }}>
-            Suscribirse
-          </button>
         </section>
 
         {/* Social Links */}
@@ -344,10 +263,6 @@ export default function Home() {
           <details style={{ marginBottom: "10px" }}>
             <summary style={{ cursor: "pointer", fontWeight: "bold" }}>¿Usan materiales ecológicos?</summary>
             <p>Sí, priorizamos productos sostenibles.</p>
-          </details>
-          <details>
-            <summary style={{ cursor: "pointer", fontWeight: "bold" }}>¿Ofrecen garantía?</summary>
-            <p>Sí, 1 año en todos nuestros servicios.</p>
           </details>
         </section>
 
