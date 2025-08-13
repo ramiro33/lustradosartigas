@@ -51,14 +51,26 @@ export default function Home() {
         borderBottom: "2px solid #D4A017",
       }}>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <img src="/logo.png" alt="Logo Lustrados Artigas" style={{ width: 50, marginRight: "10px" }} />
-          <h1 style={{ fontSize: "1.5rem", margin: 0 }}>LUSTRADOS ARTIGAS</h1>
+          <img src="/logo.png" alt="Logo Lustrados Artigas" style={{ width: 50, marginRight: "10px", transition: "transform 0.3s ease" }} 
+            onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.1)"} 
+            onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"} />
+          <h1 style={{ fontSize: "1.5rem", margin: 0, transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>LUSTRADOS ARTIGAS</h1>
         </div>
         <nav style={{ display: "flex", gap: "20px" }}>
-          <a href="/" style={{ color: "#D4A017", textDecoration: "none", fontWeight: "bold" }}>Inicio</a>
-          <a href="/resenas" style={{ color: "#D4A017", textDecoration: "none", fontWeight: "bold" }}>Opiniones</a>
-          <a href="/servicio" style={{ color: "#D4A017", textDecoration: "none", fontWeight: "bold" }}>Servicio</a>
-          <a href="/galeria" style={{ color: "#D4A017", textDecoration: "none", fontWeight: "bold" }}>Galería</a>
+          <a href="/" style={{ color: "#D4A017", textDecoration: "none", fontWeight: "bold", transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Inicio</a>
+          <a href="/resenas" style={{ color: "#D4A017", textDecoration: "none", fontWeight: "bold", transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Opiniones</a>
+          <a href="/servicio" style={{ color: "#D4A017", textDecoration: "none", fontWeight: "bold", transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Servicio</a>
+          <a href="/galeria" style={{ color: "#D4A017", textDecoration: "none", fontWeight: "bold", transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Galería</a>
           <button onClick={handleGoogleSignIn} style={{
             backgroundColor: "#D4A017",
             color: "#1A2A44",
@@ -67,7 +79,10 @@ export default function Home() {
             borderRadius: "5px",
             cursor: "pointer",
             fontWeight: "bold",
-          }}>Login</button>
+            transition: "background-color 0.3s, transform 0.3s",
+          }} 
+          onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#FFD700"; e.currentTarget.style.transform = "scale(1.05)"; }} 
+          onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#D4A017"; e.currentTarget.style.transform = "scale(1)"; }}>Login</button>
         </nav>
       </header>
 
@@ -79,18 +94,32 @@ export default function Home() {
         color: "#fff",
       }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "15px" }}>
-          <h3 style={{ margin: "0 0 10px 0" }}>Trabajos Recientes</h3>
-          <a href="/trabajos" style={{ color: "#fff", textDecoration: "none" }}>Proyectos</a>
-          <a href="/contactos" style={{ color: "#fff", textDecoration: "none" }}>Asistencia</a>
-          <a href="/presupuestos" style={{ color: "#fff", textDecoration: "none" }}>Presupuestos</a>
+          <h3 style={{ margin: "0 0 10px 0", transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#fff"}>Trabajos Recientes</h3>
+          <a href="/trabajos" style={{ color: "#fff", textDecoration: "none", transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#fff"}>Proyectos</a>
+          <a href="/contactos" style={{ color: "#fff", textDecoration: "none", transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#fff"}>Asistencia</a>
+          <a href="/presupuestos" style={{ color: "#fff", textDecoration: "none", transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#fff"}>Presupuestos</a>
           <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
-            <a href="https://facebook.com/tu_pagina" target="_blank" rel="noopener noreferrer" style={{ transition: "transform 0.3s" }}>
+            <a href="https://facebook.com/tu_pagina" target="_blank" rel="noopener noreferrer" style={{ transition: "transform 0.3s" }} 
+              onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.2)"} 
+              onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}>
               <img src="/Facebook.png" alt="Facebook Logo" style={{ width: 30, cursor: "pointer" }} />
             </a>
-            <a href="https://instagram.com/tu_usuario_aqui" target="_blank" rel="noopener noreferrer" style={{ transition: "transform 0.3s" }}>
+            <a href="https://instagram.com/tu_usuario_aqui" target="_blank" rel="noopener noreferrer" style={{ transition: "transform 0.3s" }} 
+              onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.2)"} 
+              onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}>
               <img src="/instagram.png" alt="Instagram Logo" style={{ width: 30, cursor: "pointer" }} />
             </a>
-            <a href="https://wa.me/59892669143?text=Hola%20Lustrados%20Artigas" target="_blank" rel="noopener noreferrer" style={{ transition: "transform 0.3s" }}>
+            <a href="https://wa.me/59892669143?text=Hola%20Lustrados%20Artigas" target="_blank" rel="noopener noreferrer" style={{ transition: "transform 0.3s" }} 
+              onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.2)"} 
+              onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}>
               <img src="/whatsapp.png" alt="Whatsapp Logo" style={{ width: 30, cursor: "pointer" }} />
             </a>
           </div>
@@ -113,9 +142,16 @@ export default function Home() {
           backgroundColor: "rgba(255, 255, 255, 0.1)",
           borderRadius: "10px",
           boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
-        }}>
-          <h2 style={{ fontSize: "2rem" }}>Lustrados Artigas</h2>
-          <p>We provide high-quality polishing services to enhance the beauty and durability of your surfaces.</p>
+          transition: "transform 0.3s",
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"}
+        onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}>
+          <h2 style={{ fontSize: "2rem", transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#fff"}>Lustrados Artigas</h2>
+          <p style={{ transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#D4A017"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#fff"}>We provide high-quality polishing services to enhance the beauty and durability of your surfaces.</p>
           <button style={{
             marginTop: "20px",
             padding: "10px 20px",
@@ -125,11 +161,18 @@ export default function Home() {
             borderRadius: "5px",
             cursor: "pointer",
             fontWeight: "bold",
-          }}>Lea más</button>
+            transition: "background-color 0.3s, transform 0.3s",
+          }} 
+          onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#FFD700"; e.currentTarget.style.transform = "scale(1.05)"; }} 
+          onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#D4A017"; e.currentTarget.style.transform = "scale(1)"; }}>Lea más</button>
         </section>
         <section style={{ textAlign: "center", marginTop: "40px" }}>
-          <h3>Galería</h3>
-          <img src="/gallery1.jpg" alt="Gallery Image" style={{ width: "300px", borderRadius: "10px", marginTop: "20px" }} />
+          <h3 style={{ transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#fff"}>Galería</h3>
+          <img src="/gallery1.jpg" alt="Gallery Image" style={{ width: "300px", borderRadius: "10px", marginTop: "20px", transition: "transform 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.1)"} 
+            onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"} />
         </section>
       </main>
 
@@ -139,7 +182,10 @@ export default function Home() {
         padding: "20px",
         backgroundColor: "#1A2A44",
         color: "#D4A017",
-      }}>
+        transition: "opacity 0.3s",
+      }}
+      onMouseEnter={(e) => e.currentTarget.style.opacity = "0.8"}
+      onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}>
         TELÉFONO: 092 669 143 | Desde Artigas, Uruguay<br />
         © 2025 Lustrados Artigas. Todos los derechos reservados.
       </footer>
