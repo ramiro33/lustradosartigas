@@ -6,6 +6,9 @@ export default function Home() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [loginData, setLoginData] = useState({ username: '', email: '', password: '' });
+  const [loginError, setLoginError] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -19,20 +22,43 @@ export default function Home() {
     setTimeout(() => setSubmitted(false), 3000);
   };
 
-  const handleGoogleSignIn = () => {
-    console.log('Iniciar sesión con Google');
-    // Aquí iría la lógica real de autenticación con Google
+  const handleLoginInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setLoginData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSignUp = () => {
-    console.log('Registrarse');
-    // Aquí iría la lógica real de registro
+  const handleLoginSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (loginData.password.length < 8) {
+      setLoginError('La contraseña debe tener al menos 8 caracteres');
+      return;
+    }
+    if (!loginData.username || !loginData.email) {
+      setLoginError('El usuario y el correo son obligatorios');
+      return;
+    }
+    console.log('Login successful:', loginData);
+    setLoginError('');
+    setShowLogin(false);
+  };
+
+  const handleLoginOpen = () => {
+    setShowLogin(true);
+  };
+
+  const handleLoginClose = (e: React.KeyboardEvent | MouseEvent) => {
+    if (e instanceof KeyboardEvent && e.key === 'Escape') {
+      setShowLogin(false);
+    }
+    if (e instanceof MouseEvent && (e.target as HTMLElement).className === 'modal') {
+      setShowLogin(false);
+    }
   };
 
   return (
     <div style={{
       display: "grid",
-      gridTemplateColumns: "200px 1fr",
+      gridTemplateColumns: "250px 1fr",
       gridTemplateRows: "auto 1fr auto",
       height: "100vh",
       fontFamily: "'Roboto', sans-serif",
@@ -71,7 +97,7 @@ export default function Home() {
           <a href="/galeria" style={{ color: "#D4A017", textDecoration: "none", fontWeight: "bold", transition: "color 0.3s" }} 
             onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
             onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Galería</a>
-          <button onClick={handleGoogleSignIn} style={{
+          <button onClick={handleLoginOpen} style={{
             backgroundColor: "#D4A017",
             color: "#1A2A44",
             border: "none",
@@ -93,19 +119,16 @@ export default function Home() {
         backgroundColor: "#1A2A44",
         color: "#fff",
       }}>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "15px" }}>
-          <h3 style={{ margin: "0 0 10px 0", transition: "color 0.3s" }} 
-            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
-            onMouseLeave={(e) => e.currentTarget.style.color = "#fff"}>Trabajos Recientes</h3>
-          <a href="/trabajos" style={{ color: "#fff", textDecoration: "none", transition: "color 0.3s" }} 
-            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
-            onMouseLeave={(e) => e.currentTarget.style.color = "#fff"}>Proyectos</a>
-          <a href="/contactos" style={{ color: "#fff", textDecoration: "none", transition: "color 0.3s" }} 
-            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
-            onMouseLeave={(e) => e.currentTarget.style.color = "#fff"}>Asistencia</a>
-          <a href="/presupuestos" style={{ color: "#fff", textDecoration: "none", transition: "color 0.3s" }} 
-            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
-            onMouseLeave={(e) => e.currentTarget.style.color = "#fff"}>Presupuestos</a>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "20px" }}>
+          <a href="/trabajos" style={{ color: "#fff", textDecoration: "none", fontSize: "1.2rem", padding: "15px 30px", backgroundColor: "#8B4513", borderRadius: "5px", transition: "color 0.3s, background-color 0.3s" }} 
+            onMouseEnter={(e) => { e.currentTarget.style.color = "#FFD700"; e.currentTarget.style.backgroundColor = "#A0522D"; }} 
+            onMouseLeave={(e) => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.backgroundColor = "#8B4513"; }}>Proyectos</a>
+          <a href="/contactos" style={{ color: "#fff", textDecoration: "none", fontSize: "1.2rem", padding: "15px 30px", backgroundColor: "#8B4513", borderRadius: "5px", transition: "color 0.3s, background-color 0.3s" }} 
+            onMouseEnter={(e) => { e.currentTarget.style.color = "#FFD700"; e.currentTarget.style.backgroundColor = "#A0522D"; }} 
+            onMouseLeave={(e) => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.backgroundColor = "#8B4513"; }}>Asistencia</a>
+          <a href="/presupuestos" style={{ color: "#fff", textDecoration: "none", fontSize: "1.2rem", padding: "15px 30px", backgroundColor: "#8B4513", borderRadius: "5px", transition: "color 0.3s, background-color 0.3s" }} 
+            onMouseEnter={(e) => { e.currentTarget.style.color = "#FFD700"; e.currentTarget.style.backgroundColor = "#A0522D"; }} 
+            onMouseLeave={(e) => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.backgroundColor = "#8B4513"; }}>Presupuestos</a>
           <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
             <a href="https://facebook.com/tu_pagina" target="_blank" rel="noopener noreferrer" style={{ transition: "transform 0.3s" }} 
               onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.2)"} 
@@ -175,6 +198,48 @@ export default function Home() {
             onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"} />
         </section>
       </main>
+
+      {showLogin && (
+        <div className="modal" style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(0,0,0,0.5)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 1000,
+        }} onClick={handleLoginClose} onKeyDown={handleLoginClose}>
+          <div style={{
+            backgroundColor: "#fff",
+            padding: "20px",
+            borderRadius: "10px",
+            width: "300px",
+            color: "#1A2A44",
+          }}>
+            <h2 style={{ textAlign: "center" }}>Iniciar Sesión</h2>
+            <form onSubmit={handleLoginSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              <input type="text" name="username" placeholder="Usuario" value={loginData.username} onChange={handleLoginInputChange} required style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
+              <input type="email" name="email" placeholder="Correo Electrónico" value={loginData.email} onChange={handleLoginInputChange} required style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
+              <input type="password" name="password" placeholder="Contraseña" value={loginData.password} onChange={handleLoginInputChange} required style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
+              {loginError && <p style={{ color: "red", margin: "5px 0" }}>{loginError}</p>}
+              <button type="submit" style={{
+                padding: "10px",
+                backgroundColor: "#D4A017",
+                color: "#1A2A44",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                transition: "background-color 0.3s",
+              }} 
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#FFD700"} 
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#D4A017"}>Iniciar Sesión</button>
+            </form>
+          </div>
+        </div>
+      )}
 
       <footer style={{
         gridColumn: "1 / 3",
