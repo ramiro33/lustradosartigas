@@ -55,13 +55,17 @@ export default function Home() {
   };
 
   const handleLoginClose = (e: React.MouseEvent) => {
-    if ('target' in e && (e.target as HTMLElement).className === 'modal' || e.currentTarget.className === 'close-button') {
+    if (e.target && (e.target as HTMLElement).className === 'modal' || e.currentTarget.className === 'close-button') {
       setShowLogin(false);
     }
   };
 
   const handleCommentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isLoggedIn) {
+      setShowLogin(true); // Requiere login
+      return;
+    }
     if (comment.trim() === '') return;
     setComments(prev => [...prev, { username: loginData.username, comment, stars }]);
     setComment('');
@@ -145,7 +149,7 @@ export default function Home() {
         color: "#fff",
       }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "20px" }}>
-          <a href="/contactos" style={{ color: "#D4A017", textDecoration: "none", fontSize: "1.2rem", padding: "15px 40px", border: "1px solid black", background: "transparent", borderRadius: "5px", transition: "color 0.3s" }} 
+          <a href="/contactanos" style={{ color: "#D4A017", textDecoration: "none", fontSize: "1.2rem", padding: "15px 40px", border: "1px solid black", background: "transparent", borderRadius: "5px", transition: "color 0.3s" }} 
             onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
             onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Contacto</a>
           <a href="/presupuestos" style={{ color: "#D4A017", textDecoration: "none", fontSize: "1.2rem", padding: "15px 40px", border: "1px solid black", background: "transparent", borderRadius: "5px", transition: "color 0.3s" }} 
@@ -249,11 +253,9 @@ export default function Home() {
           <a href="https://instagram.com/tu_usuario_aqui" target="_blank" rel="noopener noreferrer" style={{ transition: "transform 0.3s" }} onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.2)"} onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}>
             <img src="/instagram.png" alt="Instagram Logo" style={{ width: 80, cursor: "pointer" }} />
           </a>
-
           <a href="https://wa.me/59892669143?text=Hola%20Lustrados%20Artigas" target="_blank" rel="noopener noreferrer" style={{ transition: "transform 0.3s" }} onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.2)"} onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}>
             <img src="/whatsapp.png" alt="Whatsapp Logo" style={{ width: 80, cursor: "pointer" }} />
           </a>
-
           <a href="https://facebook.com/tu_pagina" target="_blank" rel="noopener noreferrer" style={{ transition: "transform 0.3s" }} onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.2)"} onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}>
             <img src="/facebook.png" alt="Facebook Logo" style={{ width: 80, cursor: "pointer" }} />
           </a>
@@ -304,7 +306,7 @@ export default function Home() {
             <form onSubmit={handleCommentSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
               <textarea placeholder="Escribe tu comentario" value={comment} onChange={(e) => setComment(e.target.value)} style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc", height: "100px" }} />
               <div style={{ display: "flex", justifyContent: "center", gap: "5px" }}>
-                {[0,1,2,3,4,5].map((star) => (
+                {[0, 1, 2, 3, 4, 5].map((star) => (
                   <button key={star} type="button" onClick={() => setStars(star)} style={{ background: "transparent", border: "none", cursor: "pointer", fontSize: "1.5rem", color: star <= stars ? "#FFD700" : "#ccc" }}>⭐</button>
                 ))}
               </div>
@@ -321,7 +323,17 @@ export default function Home() {
               onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Agregar Comentario</button>
             </form>
           ) : (
-            <p>Debes iniciar sesión para agregar un comentario.</p>
+            <button onClick={handleLoginOpen} style={{
+              padding: "10px",
+              border: "1px solid black",
+              background: "transparent",
+              color: "#D4A017",
+              borderRadius: "5px",
+              cursor: "pointer",
+              transition: "color 0.3s, transform 0.3s",
+            }} 
+            onMouseEnter={(e) => { e.currentTarget.style.color = "#FFD700"; e.currentTarget.style.transform = "scale(1.05)"; }} 
+            onMouseLeave={(e) => { e.currentTarget.style.color = "#D4A017"; e.currentTarget.style.transform = "scale(1)"; }}>Inicia sesión para comentar</button>
           )}
         </section>
       </main>
