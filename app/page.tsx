@@ -1,3 +1,4 @@
+// app/page.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -10,6 +11,10 @@ export default function Home() {
   const [loginData, setLoginData] = useState({ username: '', email: '', password: '' });
   const [loginError, setLoginError] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showUsername, setShowUsername] = useState(false);
+  const [comment, setComment] = useState('');
+  const [stars, setStars] = useState(0);
+  const [comments, setComments] = useState([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -55,6 +60,14 @@ export default function Home() {
     }
   };
 
+  const handleCommentSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (comment.trim() === '') return;
+    setComments(prev => [...prev, { username: loginData.username, comment, stars }]);
+    setComment('');
+    setStars(0);
+  };
+
   return (
     <div style={{
       display: "grid",
@@ -63,7 +76,7 @@ export default function Home() {
       height: "100vh",
       fontFamily: "'Roboto', sans-serif",
       margin: 0,
-      background: "linear-gradient(to bottom, #1A2A44, #0A142A)",
+      background: "linear-gradient(to bottom, #DEB887, #8B4513, #FFFFFF)",
       overflowY: "auto",
     }}>
       <header style={{
@@ -80,6 +93,9 @@ export default function Home() {
           <img src="/logo.png" alt="Logo Lustrados Artigas" style={{ width: 50, marginRight: "10px", transition: "transform 0.3s ease" }} 
             onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.1)"} 
             onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"} />
+          <h1 style={{ fontSize: "1.5rem", margin: 0, transition: "color 0.3s" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>LUSTRADOS ARTIGAS</h1>
         </div>
         <nav style={{ display: "flex", gap: "20px" }}>
           <a href="/" style={{ color: "#D4A017", textDecoration: "none", fontWeight: "bold", transition: "color 0.3s", border: "1px solid black", background: "transparent", padding: "5px 15px", borderRadius: "5px" }} 
@@ -94,10 +110,16 @@ export default function Home() {
           <a href="/galeria" style={{ color: "#D4A017", textDecoration: "none", fontWeight: "bold", transition: "color 0.3s", border: "1px solid black", background: "transparent", padding: "5px 15px", borderRadius: "5px" }} 
             onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
             onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Galería</a>
+          <a href="/contactanos" style={{ color: "#D4A017", textDecoration: "none", fontWeight: "bold", transition: "color 0.3s", border: "1px solid black", background: "transparent", padding: "5px 15px", borderRadius: "5px" }} 
+            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+            onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Contactanos</a>
           {isLoggedIn ? (
-            <img src="/avatar.png" alt="Avatar" style={{ width: 40, height: 40, borderRadius: "50%", cursor: "pointer", transition: "transform 0.3s" }} 
-              onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.1)"} 
-              onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"} />
+            <div style={{ position: "relative" }}>
+              <img src="/avatar.png" alt="Avatar" style={{ width: 40, height: 40, borderRadius: "50%", cursor: "pointer", transition: "transform 0.3s" }} 
+                onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.1)"; setShowUsername(true); }} 
+                onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; setShowUsername(false); }} />
+              {showUsername && <p style={{ position: "absolute", bottom: "-20px", left: "50%", transform: "translateX(-50%)", color: "#fff", background: "#1A2A44", padding: "5px", borderRadius: "5px" }}>{loginData.username}</p>}
+            </div>
           ) : (
             <button onClick={handleLoginOpen} style={{
               color: "#D4A017",
@@ -123,12 +145,9 @@ export default function Home() {
         color: "#fff",
       }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "20px" }}>
-          <a href="/trabajos" style={{ color: "#D4A017", textDecoration: "none", fontSize: "1.2rem", padding: "15px 40px", border: "1px solid black", background: "transparent", borderRadius: "5px", transition: "color 0.3s" }} 
-            onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
-            onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Proyectos</a>
           <a href="/contactos" style={{ color: "#D4A017", textDecoration: "none", fontSize: "1.2rem", padding: "15px 40px", border: "1px solid black", background: "transparent", borderRadius: "5px", transition: "color 0.3s" }} 
             onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
-            onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Asistencia</a>
+            onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Contacto</a>
           <a href="/presupuestos" style={{ color: "#D4A017", textDecoration: "none", fontSize: "1.2rem", padding: "15px 40px", border: "1px solid black", background: "transparent", borderRadius: "5px", transition: "color 0.3s" }} 
             onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
             onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Presupuestos</a>
@@ -270,6 +289,40 @@ export default function Home() {
         <section style={{ width: "100%", textAlign: "center" }}>
           <h2>Últimas Noticias del Blog</h2>
           <p>Consejos para mantener tus muebles lustrados. <a href="/blog" style={{ color: "#D4A017", textDecoration: "underline" }}>Leer más</a></p>
+        </section>
+
+        {/* Comments Section */}
+        <section style={{ width: "100%", textAlign: "center" }}>
+          <h2>Comentarios</h2>
+          {comments.map((com, index) => (
+            <div key={index} style={{ marginBottom: "20px", border: "1px solid #ccc", padding: "10px", borderRadius: "5px" }}>
+              <p><strong>{com.username}</strong>: {com.comment}</p>
+              <p>Estrellas: {'⭐'.repeat(com.stars)}</p>
+            </div>
+          ))}
+          {isLoggedIn ? (
+            <form onSubmit={handleCommentSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              <textarea placeholder="Escribe tu comentario" value={comment} onChange={(e) => setComment(e.target.value)} style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc", height: "100px" }} />
+              <div style={{ display: "flex", justifyContent: "center", gap: "5px" }}>
+                {[0,1,2,3,4,5].map((star) => (
+                  <button key={star} type="button" onClick={() => setStars(star)} style={{ background: "transparent", border: "none", cursor: "pointer", fontSize: "1.5rem", color: star <= stars ? "#FFD700" : "#ccc" }}>⭐</button>
+                ))}
+              </div>
+              <button type="submit" style={{
+                padding: "10px",
+                border: "1px solid black",
+                background: "transparent",
+                color: "#D4A017",
+                borderRadius: "5px",
+                cursor: "pointer",
+                transition: "color 0.3s",
+              }} 
+              onMouseEnter={(e) => e.currentTarget.style.color = "#FFD700"} 
+              onMouseLeave={(e) => e.currentTarget.style.color = "#D4A017"}>Agregar Comentario</button>
+            </form>
+          ) : (
+            <p>Debes iniciar sesión para agregar un comentario.</p>
+          )}
         </section>
       </main>
 
